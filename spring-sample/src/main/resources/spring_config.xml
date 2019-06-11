@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        scope="singleton" 这样的类会在 Spring 容器启动时，被创建被保存在Spring框架SingletonList容器。
+        在每次用户调用 getBean 方法索要时，此时只会返回同一个实例对象
+        scope="prototype",这样的类不会在 Spring 容器启动时创建，在在每次用户调用 getBean 方法索要时，此时
+        返回全新的实例对象
+    -->
+    <!--
+        注册工厂
+        Spring 容器，当前teacher类的实例化操作，由动态工厂
+    -->
+    <!--<bean id="factory1" class="com.issac.util.TeacherFactory"></bean>-->
+    <!--<bean id="teacher" class="com.issac.beans.Teacher" scope="prototype">-->
+        <!--<property name="tname" value="Mr Young"></property>-->
+    <!--</bean>-->
+    <!--<bean id="teacher" class="com.issac.util.TeacherFactory" factory-method="createTeacher">-->
+          <!--&lt;!&ndash;factory-bean="factory1" &ndash;&gt;-->
+          <!--&lt;!&ndash;factory-method="createTeacher"&ndash;&gt;-->
+
+    <!--</bean>-->
+
+    <bean id="teacher" class="com.issac.beans.Teacher">
+        <property name="teacherName" value="Mr Young"/>
+        <property name="friendArray" value="mike,allen,tom"/>
+        <property name="school" value="北京航天航空大学,江西师范大学"/>
+    </bean>
+
+    <bean id="student" class="com.issac.beans.Student">
+        <property name="sname" value="Issac"></property>
+        <property name="age" value="19"></property>
+        <property name="teacher" ref="teacher"></property>
+    </bean>
+
+    <!-- 注册bean：被监控的实现类 -->
+    <bean id="isomeService" class="com.issac.serviceImpl.ISomeService"></bean>
+    <!-- 注册代理实现类 -->
+    <bean class="com.issac.util.MyBeanPostProcessor"/>
+
+</beans>
