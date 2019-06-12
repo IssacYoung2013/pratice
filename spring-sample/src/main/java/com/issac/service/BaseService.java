@@ -10,4 +10,6 @@ package com.issac.service;
 public interface BaseService {
 
     String doSome();
+    void eat();// JoinCut 连接点
+    void wc();
 }

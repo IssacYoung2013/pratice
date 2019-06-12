@@ -57,8 +57,11 @@ public class BeanFactory {
                     } else {
                         // 此时类型是数组
                         String dataArray[] = value.split(",");
-                        methodObj.invoke(instance, dataArray);
+                        Object data[] = new Object[1];
+                        data[0] = dataArray;
+                        methodObj.invoke(instance, data);
                     }
+                    break;
                 }
             }
         }

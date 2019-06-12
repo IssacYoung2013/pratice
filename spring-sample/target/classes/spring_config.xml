@@ -40,4 +40,46 @@
     <!-- 注册代理实现类 -->
     <bean class="com.issac.util.MyBeanPostProcessor"/>
 
+    <!-- 注册被监控实现类 -->
+    <bean id="person" class="com.issac.serviceImpl.Person"></bean>
+    <bean id="dog" class="com.issac.serviceImpl.Dog"></bean>
+
+    <!-- 注册通知实现类-->
+    <bean id="before" class="com.issac.advice.MyBeforeAdvice"></bean>
+    <!--&lt;!&ndash; 注册代理监控对象生产工厂 &ndash;&gt;-->
+    <!--<bean id="personProxy" class="org.springframework.aop.framework.ProxyFactoryBean">-->
+        <!--<property name="target" ref="person"/>-->
+        <!--<property name="interceptorNames">-->
+            <!--<array>-->
+                <!--<value>before</value>-->
+            <!--</array>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!-- 注册类型的过滤器-->
+    <bean id="classFilter" class="com.issac.util.MyClassFilter"></bean>
+    <!-- 注册方法匹配器-->
+    <bean id="methodMatcher" class="com.issac.util.MyMethodMatcher"></bean>
+
+    <!-- 注册切入点PointCut-->
+    <bean id="myPointCut" class="com.issac.util.MyPointCut">
+        <property name="classFilter" ref="classFilter"/>
+        <property name="methodMatcher" ref="methodMatcher"/>
+    </bean>
+
+    <!-- 注册顾问-->
+    <bean id="myPointCutAdvisor" class="com.issac.util.MyPointCutAdvisor">
+        <property name="advice" ref="before"/>
+        <property name="pointcut" ref="myPointCut"/>
+    </bean>
+
+    <!-- 注册代理对象工厂 -->
+    <!--
+        此时生成代理对象，只会负责person.eat方法监控
+        与Advice不同，不会对BaseService所有方法进行监控
+    -->
+    <bean id="personProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="person"></property>
+        <property name="interceptorNames" value="myPointCutAdvisor"/>
+    </bean>
 </beans>

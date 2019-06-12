@@ -26,4 +26,7 @@ public class Teacher {
     private String friendArray[];
     private List<String> school;
 
+    public void setFriendArray(Object friendArray) {
+        this.friendArray = (String[])friendArray;
+    }
 }
