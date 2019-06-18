@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <!-- schema 是 XML 的约束文件-->
+
+    <!-- 配置组件扫描器 -->
+    <!-- 作用：主要是spring使用，用来扫描带指定注解的类，将这些类加载成BeanDefinition-->
+    <!-- 问题：元素 "context:component-scan" 的前缀 "context" 未绑定。-->
+    <!--<context:component-scan base-package="com.issac.service"/>-->
+
+    <!-- 配置目标对象-->
+    <bean id="userService" class="com.issac.service.UserServiceImpl "></bean>
+    <bean id="userDao" class="com.issac.service.UserDao"></bean>
+
+    <!--&lt;!&ndash; location 表示要加载的 properties 路径&ndash;&gt;-->
+    <!--<context:property-placeholder location="classpath:data.properties"/>-->
+
+    <!--<import resource="classpath:"/>-->
+
+    <!-- 配置通知类-->
+    <bean id="myAdvice" class="com.issac.advice.MyAdvice"></bean>
+
+    <!-- 配置AOP-->
+    <aop:config>
+        <!--配置AOP切面，切面是由通知和切入点组成的-->
+        <!--pointcut:编写切入点表达式，定位需要切入的方法-->
+        <!--<aop:advisor advice-ref="myAdvice" -->
+                     <!--pointcut="execution(void com.issac.service.UserServiceImpl.saveUser())">-->
+            <!---->
+        <!--</aop:advisor>-->
+        <aop:aspect ref="myAdvice">
+            <!-- before:前置通知 -->
+            <!--pointcut:编写切入点表达式，定位需要切入的方法-->
+            <!-- method 增强类的方法 -->
+            <!--<aop:before method="log"-->
+                        <!--pointcut="execution(void com.issac.service.UserServiceImpl.saveUser())"></aop:before>-->
+            <!--<aop:after-returning method="log2"-->
+                        <!--pointcut="execution(void com.issac.service.UserServiceImpl.saveUser())"></aop:after-returning>-->
+            <!--<aop:after method="log3"-->
+                                 <!--pointcut="execution(void com.issac.service.UserServiceImpl.saveUser())"></aop:after>-->
+            <!--<aop:after-throwing method="log4"-->
+                       <!--pointcut="execution(void com.issac.service.UserServiceImpl.saveUser())"></aop:after-throwing>-->
+
+            <aop:around method="log5"
+                        pointcut="execution(void *..*ServiceImpl.update*())"/>
+                        <!--pointcut="execution(void com.issac.service.UserServiceImpl.saveUser())"-->
+            <!--</aop:around>-->
+
+        </aop:aspect>
+    </aop:config>
+</beans>
