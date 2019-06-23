@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.issac.mapper.UserMapper">
+    <!-- 查询 -->
+    <select id="queryMoney" parameterType="int" resultType="double">
+        SELECT money FROM user WHERE id = #{id}
+    </select>
+    <!-- 修改 -->
+    <update id="update" parameterType="map">
+        UPDATE user SET money = #{money} WHERE id = #{id}
+    </update>
+</mapper>

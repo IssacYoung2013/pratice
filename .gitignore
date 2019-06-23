@@ -26,5 +26,9 @@
 
 .DS_Store
 
-spring-sample/target
-spring-sample2/target
+spring-aop/target/*
+spring-ioc/target/*
+spring-jdbc/target/*
+spring-mvc/target/*
+spring-mybatis/target/*
+spring-ssm/target/*

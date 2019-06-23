@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 读取配置文件 -->
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <!-- 从底层往上层配置 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${db.driverClassName}"></property>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
+
+    <!-- 配置 SqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+
+        <!-- mybatis 批量别名配置 -->
+        <property name="typeAliasesPackage" value="com.issac.po"/>
+
+        <property name="mapperLocations" value="classpath:mybatis/mapper/*Mapper.xml"/>
+
+        <!-- 注入 mybatis 全局配置文件 该部分可以被省略掉 -->
+        <!--<property name="configLocation"-->
+                  <!--value="classpath:mybatis/SqlMapConfig.xml"></property>-->
+    </bean>
+
+    <!-- 相当于配置之前的 AccountDao 持久层 bean -->
+    <!-- 配置 Mapper 代理对象方式一：MapperFactoryBean -->
+    <!-- 通过 MapperFactoryBean 生成的代理对象，一次智能针对一个接口进行生成-->
+    <!-- 注意事项 mapper 接口类和 mapper 映射文件同包同名-->
+    <!--<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">-->
+        <!--&lt;!&ndash; 注入 sqlSessionFactory &ndash;&gt;-->
+        <!--<property name="sqlSessionFactory" ref="sqlSessionFactory"/>-->
+
+        <!--&lt;!&ndash; 注入目标接口类 &ndash;&gt;-->
+        <!--<property name="mapperInterface" value="com.issac.mapper.UserMapper"/>-->
+    <!--</bean>-->
+
+    <!-- 配置 Mapper 代理对象方式二：MapperScannerConfigure-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 批量代理对象的生成-->
+        <!-- 指定需要生成代理的接口所在的包名-->
+        <property name="basePackage" value="com.issac.mapper"/>
+
+        <!-- 注意事项：不要配置 sqlSessionFactory-->
+        <!--<property name="sqlSessionFactory" ref="sqlSessionFactory"/>-->
+    </bean>
+</beans>
