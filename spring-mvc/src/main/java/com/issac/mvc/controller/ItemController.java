@@ -1,6 +1,6 @@
-package com.issac.controller;
+package com.issac.mvc.controller;
 
-import com.issac.po.Item;
+import com.issac.mvc.po.Item;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;

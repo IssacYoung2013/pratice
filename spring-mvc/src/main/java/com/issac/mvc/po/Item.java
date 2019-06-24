@@ -1,4 +1,4 @@
-package com.issac.po;
+package com.issac.mvc.po;
 
 import lombok.Data;
 

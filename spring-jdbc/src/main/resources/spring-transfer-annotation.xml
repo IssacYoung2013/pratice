@@ -19,13 +19,13 @@
         <constructor-arg name="dataSource" ref="dataSource"></constructor-arg>
     </bean>
 
-    <!--<context:component-scan base-package="com.issac.service"/>-->
+    <!--<context:component-scan base-package="com.issac.ssm.service"/>-->
 
     <bean class="com.issac.dao.UserDaoImpl" id="userDao">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean class="com.issac.service.UserServiceImpl" id="userService">
+    <bean class="com.issac.ssm.service.UserServiceImpl" id="userService">
         <property name="userDao" ref="userDao" />
     </bean>
 

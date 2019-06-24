@@ -16,7 +16,7 @@ import org.springframework.context.annotation.*;
 // <beans></beans>
 // 配置类
 @Configuration
-@ComponentScan(basePackages = "com.issac.service")
+@ComponentScan(basePackages = "com.issac.ssm.service")
 @Import(DaoConfiguration.class)
 // 相当于 context:component-scane标签
 public class SpringConfiguration {

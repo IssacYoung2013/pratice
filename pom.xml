@@ -15,6 +15,7 @@
         <module>spring-mvc</module>
         <module>spring-mybatis</module>
         <module>spring-ssm</module>
+        <module>mybatis-genertor</module>
     </modules>
 
     <name>demo</name>

@@ -32,3 +32,4 @@ spring-jdbc/target/*
 spring-mvc/target/*
 spring-mybatis/target/*
 spring-ssm/target/*
+mybatis-genertor/target/*
