@@ -30,4 +30,9 @@ public class ItemServiceImpl implements ItemService {
 
         return itemList;
     }
+
+    @Override
+    public Item queryItemById(Integer id) {
+        return id== null ? null:itemMapper.selectByPrimaryKey(id);
+    }
 }

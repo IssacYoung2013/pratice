@@ -14,4 +14,6 @@ import java.util.List;
 public interface ItemService {
 
     List<Item> queryItemList();
+
+    Item queryItemById(Integer id);
 }

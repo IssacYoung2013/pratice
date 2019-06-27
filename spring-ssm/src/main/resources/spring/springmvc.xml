@@ -11,16 +11,30 @@
     </context:component-scan>
 
     <!-- 注册映射器  @Controller @RquestMapping -->
-    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>-->
+    <!--<bean class="org.springframework.web.servlet.mvc.charge.annotation.RequestMappingHandlerMapping"/>-->
     <!--&lt;!&ndash; 注册适配器&ndash;&gt;-->
-    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>-->
+    <!--<bean class="org.springframework.web.servlet.mvc.charge.annotation.RequestMappingHandlerAdapter"/>-->
 
     <!-- 配置注解的适配器和映射器，同时注入了很多其他的bean-->
-    <mvc:annotation-driven/>
+    <!-- 处理器适配器会去调用 conversionService -->
+    <mvc:annotation-driven conversion-service="conversionService"/>
 
     <!-- 显示配置视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+    <!-- 配置自定义的转换服务 -->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <!-- 自定义转换器 -->
+                <bean class="com.issac.ssm.converter.DateConverter"/>
+            </set>
+        </property>
+    </bean>
+
+    <!-- 配置异常处理器 -->
+    <bean class="com.issac.ssm.resolver.CustomExceptionHandler"/>
 </beans>
