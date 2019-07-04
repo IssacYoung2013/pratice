@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.issac</groupId>
-    <artifactId>spring-sample</artifactId>
+    <artifactId>spring-ioc</artifactId>
 
 
 </project>

@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- *
- *
  * @author: ywy
  * @date: 2019-06-23
  * @desc:
@@ -33,6 +31,17 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item queryItemById(Integer id) {
-        return id== null ? null:itemMapper.selectByPrimaryKey(id);
+        return id == null ? null : itemMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void updateItem(Item item) {
+        if (item == null) {
+            return;
+        }
+        if (item.getId() == null) {
+            return;
+        }
+        itemMapper.updateByPrimaryKey(item);
     }
 }

@@ -10,9 +10,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.issac</groupId>
-    <artifactId>spring-sample2</artifactId>
+    <artifactId>spring-aop</artifactId>
 
-    <name>spring-sample2</name>
+    <name>spring-aop</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 

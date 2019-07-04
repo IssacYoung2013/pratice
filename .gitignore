@@ -33,3 +33,10 @@ spring-mvc/target/*
 spring-mybatis/target/*
 spring-ssm/target/*
 mybatis-genertor/target/*
+
+springboot-primary/target/*
+springboot-multienv/target/*
+springboot-webdemo/target/*
+springboot-readconfig/target/*
+springboot-jspdemo/target/*
+springboot-mybatisdemo/target/*

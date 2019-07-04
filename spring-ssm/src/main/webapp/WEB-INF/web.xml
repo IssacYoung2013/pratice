@@ -2,51 +2,65 @@
          xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-        version="3.1">
+         version="3.1">
 
-  <!-- 配置前端控制器加载spring子容器-->
-  <!-- 配置前端控制器 -->
-  <servlet>
-    <servlet-name>springssm</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <!-- 设置 spring 配置文件路径 -->
-    <!-- 如果不设置初始化参数，那么 DispatcherServlet 会读取默认路径下的配置文件 -->
-    <!-- 默认配置文件路径：/WEB-INF/springmvc-servlet.xml -->
-    <init-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>classpath:spring/springmvc.xml</param-value>
-    </init-param>
-    <!-- 指定初始化时机,设置为2表示context启动时，DispatcherServlet它会跟随初始化，否则
-      DispatcherServlet 就会在第一次请求时创建-->
-    <load-on-startup>2</load-on-startup>
-  </servlet>
+    <!-- 配置前端控制器加载spring子容器-->
+    <!-- 配置前端控制器 -->
+    <servlet>
+        <servlet-name>ssm</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!-- 设置 spring 配置文件路径 -->
+        <!-- 如果不设置初始化参数，那么 DispatcherServlet 会读取默认路径下的配置文件 -->
+        <!-- 默认配置文件路径：/WEB-INF/springmvc-servlet.xml -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/springmvc.xml</param-value>
+        </init-param>
+        <!-- 指定初始化时机,设置为2表示context启动时，DispatcherServlet它会跟随初始化，否则
+          DispatcherServlet 就会在第一次请求时创建-->
+        <load-on-startup>2</load-on-startup>
+    </servlet>
 
-  <servlet-mapping>
-    <servlet-name>springssm</servlet-name>
-    <!-- 不要配置为 /* 否则报错
-         通俗解释：/* 会拦截整个项目中的资源访问，包含 JSP 和静态资源的访问，但对于
-         静态资源的访问 SpringMVC 提供了默认的handler 处理器，
-         但是对于jsp 来讲，SpringMVC没有提供默认的处理器，我们也没有手动编写处理器-->
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ssm</servlet-name>
+        <!-- 不要配置为 /* 否则报错
+             通俗解释：/* 会拦截整个项目中的资源访问，包含 JSP 和静态资源的访问，但对于
+             静态资源的访问 SpringMVC 提供了默认的handler 处理器，
+             但是对于jsp 来讲，SpringMVC没有提供默认的处理器，我们也没有手动编写处理器-->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
-  <!-- 配置ContextListener加载spring父容器-->
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>
-      classpath:spring/applicationContext-dao.xml,
-      classpath:spring/applicationContext-service.xml
-    </param-value>
-    <!--<param-value>-->
-      <!--classpath:spring/import.xml-->
-    <!--</param-value>-->
-    <!--<param-value>-->
-      <!--classpath*:spring/applicationContext-*.xml-->
-    <!--</param-value>-->
-  </context-param>
+    <!-- 配置ContextListener加载spring父容器-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:spring/applicationContext-*.xml
+        </param-value>
+        <!--<param-value>-->
+        <!--classpath:spring/import.xml-->
+        <!--</param-value>-->
+        <!--<param-value>-->
+        <!--classpath*:spring/applicationContext-*.xml-->
+        <!--</param-value>-->
+    </context-param>
 
-  <!-- 监听器 -->
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
+    <!-- 监听器 -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- post 乱码过滤器 -->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 </web-app>

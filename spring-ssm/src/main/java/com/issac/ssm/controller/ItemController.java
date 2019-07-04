@@ -7,16 +7,20 @@ import com.issac.ssm.vo.ItemQueryVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 处理器的开发方式有多种，比如实现 HttpRequestHandler 接口、Controller 接口的方式，还有注解的方式
@@ -30,8 +34,10 @@ import java.util.List;
  * @desc:
  */
 @Controller
-@RequestMapping(value = "/item",
-        produces = "application/json;charset=utf8")
+@RequestMapping(value = "item"
+        ,
+        produces = "application/json;charset=utf8"
+)
 public class ItemController {
 
     @Autowired
@@ -86,7 +92,8 @@ public class ItemController {
     }
 
     @RequestMapping("queryItemById")
-    public @ResponseBody Item queryItemById() {
+    public @ResponseBody
+    Item queryItemById() {
         Item item = itemService.queryItemById(1);
         return item;
     }
@@ -112,32 +119,59 @@ public class ItemController {
     @RequestMapping("findItem")
     @ResponseBody
     public String findItem(@RequestParam(value = "itemid",
-            required = false,defaultValue = "3") Integer id) {
+            required = false, defaultValue = "3") Integer id) {
         System.out.println(id);
         return "接收到的请求参数是 " + id;
     }
 
-    @RequestMapping("updateItem")
+    @RequestMapping(value = "updateItem",method = RequestMethod.POST)
     @ResponseBody
-    public Item updateItem(Integer id, String name, BigDecimal price,Item item) {
+    public Item updateItem(Integer id, String name, BigDecimal price, Item item,
+                           MultipartFile pictureFile) throws IOException {
+
+        System.out.println(pictureFile);
+        if (pictureFile != null) {
+
+            // 获取上传文件名称
+            String orginalFilename = pictureFile.getOriginalFilename();
+            if (!StringUtils.isEmpty(orginalFilename)) {
+
+                // 获取扩展名
+                String extName = orginalFilename.substring(orginalFilename.lastIndexOf("."));
+                // 重新生成一个文件名称
+                String newFileName = UUID.randomUUID().toString() + extName;
+                // 指定存储文件的目录
+                String baseDir = "/Users/Issac/workspaces/github/upload/";
+                File dirFile = new File(baseDir);
+                if (!dirFile.exists()) {
+                    dirFile.mkdir();
+                }
+                // 将上传的文件复制到新的文件中
+                pictureFile.transferTo(new File(baseDir + newFileName));
+                item.setPic(newFileName);
+            }
+        }
+
+        // 商品修改
+        itemService.updateItem(item);
 
         return item;
     }
 
     @RequestMapping("queryItem")
     @ResponseBody
-    public Item queryItem(ItemQueryVO vo){
+    public Item queryItem(ItemQueryVO vo) {
 
         return vo.getItem();
     }
 
     @RequestMapping("listAll")
-    public String queryItemList(ItemQueryVO vo,Model model) throws CustomException {
+    public String queryItemList(ItemQueryVO vo, Model model) throws CustomException {
         List<Item> itemList = itemService.queryItemList();
 
-        if(itemList.size() < 10) {
-            throw new CustomException("自定义异常");
-        }
+//        if (itemList.size() < 10) {
+//            throw new CustomException("自定义异常");
+//        }
         model.addAttribute("itemList", itemList);
         return "item/item-list";
     }
@@ -150,7 +184,7 @@ public class ItemController {
 
     @RequestMapping("batchUpdateItem")
     @ResponseBody
-    public ItemQueryVO batchUpdateItem(ItemQueryVO vo){
+    public ItemQueryVO batchUpdateItem(ItemQueryVO vo) {
 
         return vo;
     }
@@ -161,4 +195,13 @@ public class ItemController {
 
         return date;
     }
+
+    @RequestMapping("showEdit")
+    public String showEdit(Integer id, Model model) {
+
+        Item item = itemService.queryItemById(id);
+        model.addAttribute("item", item);
+        return "item/item-edit";
+    }
+
 }

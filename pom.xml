@@ -16,6 +16,10 @@
         <module>spring-mybatis</module>
         <module>spring-ssm</module>
         <module>mybatis-genertor</module>
+        <module>springboot-primary</module>
+        <module>springboot-multienv</module>
+        <module>springboot-webdemo</module>
+        <module>springboot-readconfig</module>
     </modules>
 
     <name>demo</name>
@@ -153,10 +157,17 @@
             <version>1.2</version>
         </dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>javax.servlet</groupId>-->
+            <!--<artifactId>servlet-api</artifactId>-->
+            <!--<version>3.0-alpha-1</version>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
+
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>3.0-alpha-1</version>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -171,6 +182,13 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.9.6</version>
+        </dependency>
+
+        <!-- Mock测试使用的json-path依赖 -->
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>2.2.0</version>
         </dependency>
 
     </dependencies>
