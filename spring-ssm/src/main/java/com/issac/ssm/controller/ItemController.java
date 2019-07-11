@@ -2,7 +2,7 @@ package com.issac.ssm.controller;
 
 import com.issac.ssm.exception.CustomException;
 import com.issac.ssm.po.Item;
-import com.issac.ssm.service.ItemService;
+import com.issac.service.ItemService;
 import com.issac.ssm.vo.ItemQueryVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

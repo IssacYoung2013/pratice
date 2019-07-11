@@ -4,8 +4,6 @@ import com.issac.service.UserService;
 import com.issac.service.UserServiceImpl;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  *
  *

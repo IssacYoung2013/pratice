@@ -1,0 +1,4 @@
+# 开发阶段建议关闭thymeleaf缓存
+spring:
+  thymeleaf:
+    cache: false

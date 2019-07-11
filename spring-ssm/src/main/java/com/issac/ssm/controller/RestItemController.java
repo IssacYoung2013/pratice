@@ -1,7 +1,7 @@
 package com.issac.ssm.controller;
 
 import com.issac.ssm.po.Item;
-import com.issac.ssm.service.ItemService;
+import com.issac.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

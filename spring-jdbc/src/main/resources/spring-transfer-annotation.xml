@@ -25,7 +25,7 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean class="com.issac.ssm.service.UserServiceImpl" id="userService">
+    <bean class="UserServiceImpl" id="userService">
         <property name="userDao" ref="userDao" />
     </bean>
 

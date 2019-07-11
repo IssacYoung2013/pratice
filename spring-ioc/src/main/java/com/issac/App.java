@@ -1,7 +1,5 @@
 package com.issac;
 
-import com.issac.beans.Student;
-import com.issac.beans.Teacher;
 import com.issac.service.BaseService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
