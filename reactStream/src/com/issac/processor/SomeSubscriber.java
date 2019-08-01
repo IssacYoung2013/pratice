@@ -1,4 +1,4 @@
-package com.issac.common;
+package com.issac.processor;
 
 import java.util.concurrent.Flow;
 import java.util.concurrent.TimeUnit;
@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
  * @date: 2019-07-11
  * @desc:
  */
-public class SomeSubscriber implements Flow.Subscriber {
+public class SomeSubscriber implements Flow.Subscriber<String> {
 
     /**
      * 声明订阅令牌
@@ -34,10 +34,10 @@ public class SomeSubscriber implements Flow.Subscriber {
      * @param item
      */
     @Override
-    public void onNext(Object item) {
+    public void onNext(String item) {
         System.out.println("当前订阅者正在消费的数据为：" + item.toString());
         try {
-            TimeUnit.MILLISECONDS.sleep(500);
+            TimeUnit.MILLISECONDS.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
